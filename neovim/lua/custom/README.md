@@ -1,3 +1,2 @@
-# Example_config
-
-This can be used as an example custom config for NvChad. Do check the https://github.com/NvChad/nvcommunity
+# My Custom NvChad Config
+My spin off of the NvChad default config. Do check the out the default repository: https://github.com/NvChad/nvcommunity
