@@ -1,2 +1,2 @@
 # dotfiles
-My laptop dotfiles using Ubuntu and BSPWM
+My personal dotfiles for my Arch Linux install
