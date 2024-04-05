@@ -1,0 +1,17 @@
+{
+  "prefs": {
+    "ChangelogVersions": "{\"v0.2024.03.12.08.02.stable_02\":true,\"v0.2024.03.26.08.02.stable_02\":true}",
+    "HasAutoOpenedWelcomeFolder": "true",
+    "Shortcuts": "true",
+    "ReceivedReferralTheme": "\"Inactive\"",
+    "FontSize": "13.0",
+    "Spacing": "\"Normal\"",
+    "AutosuggestionAcceptedCount": "2",
+    "WelcomeTipsFeaturesUsed": "[{\"Action\":\"CommandPalette\"},{\"Hint\":\"CreateBlock\"},{\"Action\":\"AiCommandSearch\"},{\"Action\":\"CommandSearch\"},{\"Action\":\"WarpAI\"},{\"Action\":\"ThemePicker\"},{\"Hint\":\"BlockSelect\"}]",
+    "ExperimentId": "30e843d1-9c87-4438-8ddd-39114d157a62",
+    "OverrideOpacity": "100",
+    "AIAssistantRequestLimitInfo": "{\"limit\":100,\"num_requests_used_since_refresh\":2,\"next_refresh_time\":\"2024-03-21T14:08:29.705422Z\"}",
+    "VimModeEnabled": "false",
+    "Theme": "\"DarkCity\""
+  }
+}
