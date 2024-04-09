@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 
-import os
 import time
-import requests
-import csv
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -20,10 +17,10 @@ def get_menu_from_website():
     
     # Configure Chrome options for headless mode
     options = Options()
-    options.add_argument("--headless")  
-    options.add_argument("--disable-gpu")  
+    options.add_argument("--headless")  # Explicitly add headless argument
+    options.add_argument("--disable-gpu")  # Disable GPU hardware acceleration
     options.add_argument("--no-sandbox")  # Bypass OS security model
-    options.add_argument("--disable-dev-shm-usage")  
+    options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
     options.add_argument("--log-level=3")  # Suppress logging messages
     options.add_experimental_option("excludeSwitches", ["enable-logging"])  # exclude switching and disable high level of logs.
     
