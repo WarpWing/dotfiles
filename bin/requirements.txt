@@ -1,0 +1,3 @@
+requests
+selenium
+console-menu
