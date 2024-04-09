@@ -1,4 +1,4 @@
-## This is where I store all of my binaries (which link to their respective repositories and will be cloned recursively). These will all get correct chmod permissions and move to /usr/local/bin
+## This is where I store all of my binaries (which link to their respective repositories and will be cloned recursively). These will all get correct chmod permissions and move to /usr/local/bin.
 
 ## List of binaries
 [cafmenu](https://github.com/WarpWing/Pitchfork/blob/main/bin/cafmenu) - A bin version of my Python bot that webscrapes the Dickinson Cafeteria menu for the daily menu and emails people via SMTP on a cronjob basis.
