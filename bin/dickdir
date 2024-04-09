@@ -2,19 +2,31 @@
 
 import os
 import requests
-import json
-import re
 import sys
 import argparse
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.service import Service
+from webdriver_manager.firefox import GeckoDriverManager
+from typing_extensions import *
 
-f = requests.get('https://www2.dickinson.edu/lis/angularJS_services/directory_open/data.cfc?method=f_getAllPeople').json()
 
+# Configure Firefox options
+options = Options()
+options.add_argument("-headless")  
+options.add_argument("-disable-gpu") 
+options.add_argument("-no-sandbox")  # Bypass OS security model
+options.add_argument("-disable-dev-shm-usage")  # Overcome limited resource problems
+options.log.level = "fatal"  # Suppress logging messages
+
+# Use webdriver_manager to automatically manage Firefox (disabled logging to suppress warnings by piping to devnull)
+service = Service(GeckoDriverManager().install(),log_path=os.devnull)
+driver = webdriver.Firefox(service=service, options=options)
 
 def find_record(first_name=None, last_name=None, email=None, department=None):
+    f = requests.get('https://www2.dickinson.edu/lis/angularJS_services/directory_open/data.cfc?method=f_getAllPeople').json()
     matching_records = []
     for record in f:
         if email:
@@ -25,25 +37,13 @@ def find_record(first_name=None, last_name=None, email=None, department=None):
             if record['FIRSTNAME'].lower() == first_name.lower() and record['LASTNAME'].lower() == last_name.lower():
                 matching_records.append(record)
         elif department:
-            if record['DEPT1'].lower() == department.lower() or record['DEPT2'].lower() == department.lower():
+            department_lower = department.lower()
+            if department_lower in record['DEPT1'].lower() or department_lower in record['DEPT2'].lower():
                 matching_records.append(record)
     return matching_records
 
-# Configure Chrome options for headless mode
-options = Options()
-options.add_argument("--headless")  
-options.add_argument("--disable-gpu") 
-options.add_argument("--no-sandbox")  # Bypass OS security model
-options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
-options.add_argument("--log-level=3")  # Suppress logging messages
-options.add_experimental_option("excludeSwitches", ["enable-logging"])  # exclude switching and disable high level of logs.
-
-# Use webdriver_manager to automatically manage the ChromeDriver
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=options)
 
 def return_classes(email):
-    driver = webdriver.Chrome(options=options) 
     driver.get(f"https://www.dickinson.edu/site/custom_scripts/dc_faculty_profile_index.php?fac={email}")
 
     # Extract Education Details
@@ -132,7 +132,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Search for a person in the Dickinson College directory.')
     parser.add_argument('-name', type=str, help='Full name of the person (e.g., "First Last")')
     parser.add_argument('-email', type=str, help='Email address of the person')
-    parser.add_argument('-department', '-dep', type=str, help='Department of the person (e.g., "Computer Science")')
+    parser.add_argument('-dep', type=str, help='Department of the person (e.g., "Computer Science")')
     args = parser.parse_args()
 
     if args.name:
@@ -144,11 +144,11 @@ if __name__ == "__main__":
         last_name = None
         email = args.email
         department = None
-    elif args.department:
+    elif args.dep:
         first_name = None
         last_name = None
         email = None
-        department = args.department
+        department = args.dep
     else:
         parser.print_help()
         sys.exit(1)
